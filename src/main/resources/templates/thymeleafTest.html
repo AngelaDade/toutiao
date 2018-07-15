@@ -1,0 +1,16 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <body>
+        <span th:text="|hello,${value1}!|"></span>
+        <table class="table">
+            <thead>
+                <!--<th:text里面的引用${userheadSet.key}中的userheadMap值得是在前面定义个map里的每一个对象的userheadSet>-->
+                <th th:each="userheadSet : ${userhead}" th:text="${userheadSet.key}"></th>
+
+            </thead>
+            <tbody>
+                <td th:each="userInfoList : ${userinfo}" th:text="${userInfoList}"></td>
+            </tbody>
+        </table>
+
+    </body>
+</html>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <body>
+        <div>
+            <div th:each="view:${vos}" th:text="${view.value}">
+
+            </div>
+        </div>
+    </body>
+</html>

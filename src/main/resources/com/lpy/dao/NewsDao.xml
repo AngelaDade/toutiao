@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 在sql映射文件中，Mybatis中namespace终于派上用场，它使得映射文件和接口之间的绑定变的非常自然。
+     在iBatis中namespace不是必须的
+ -->
+<mapper namespace="com.lpy.dao.NewsDao">
+    <sql id="table">news</sql>
+    <sql id="selectFields">title, link, image, like_count, comment_count, user_id, created_date</sql>
+    <select id="selectByUserIdAndOffset" resultType="com.lpy.model.News">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        <if test="userId != 0">
+            WHERE user_id = #{userId}
+        </if>
+        ORDER BY id DESC
+        LIMIT #{offset},#{limit}
+    </select>
+</mapper>

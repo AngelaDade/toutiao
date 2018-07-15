@@ -1,5 +1,7 @@
 package com.lpy.controller;
 
+import com.lpy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,10 @@ import java.util.Enumeration;
 @Controller
 public class IndexController {
 
-    @RequestMapping(path = {"/","/index "})
+
+    @RequestMapping(path = {"/hello"})
     @ResponseBody
-    public String index(HttpSession session) {
+    public String hello(HttpSession session) {
         return "Hello World , jump from " + session.getAttribute("msg");
     }
 
