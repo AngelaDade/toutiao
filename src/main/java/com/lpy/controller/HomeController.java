@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
 
@@ -59,18 +60,19 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/","/home"})
-    public String index(Model model) {
+    @ResponseBody
+    public List<News> index() {
         List<News> newsList = newsService.getLatestNews(0,0,10);
-        List<ViewObject> viewObjects = new ArrayList<>();
+//        List<ViewObject> viewObjects = new ArrayList<>();
         //把主页上一条数据关联的都放到ViewObject里面
-        for (News news : newsList) {
-            ViewObject viewObject = new ViewObject();
-            viewObject.set("news" , news);
-            viewObject.set("user" , userService.getUserById(news.getUserId()));
-
-            viewObjects.add(viewObject);
-        }
-        model.addAttribute("vos" , viewObjects);
-        return "home";
+//        for (News news : newsList) {
+//            ViewObject viewObject = new ViewObject();
+//            viewObject.set("news" , news);
+//            viewObject.set("user" , userService.getUserById(news.getUserId()));
+//
+//            viewObjects.add(viewObject);
+//        }
+//        model.addAttribute("vos" , viewObjects);
+        return newsList;
     }
 }

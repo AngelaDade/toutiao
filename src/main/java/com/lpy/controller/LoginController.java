@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -30,13 +32,24 @@ public class LoginController {
     @ResponseBody
     public String reg(@RequestParam(value = "username") String username ,
                       @RequestParam("password") String password,
-                      @RequestParam(value = "remember", defaultValue = "0") int rememberMe  ) {
+                      @RequestParam(value = "remember", defaultValue = "0") int rememberMe ,
+                      HttpServletResponse response) {
 
 
 
         try {
             Map<String , Object> map = userService.register(username,password);
-            if (map.isEmpty()) {
+            if (map.containsKey("ticket")) {
+                Cookie cookie = new Cookie("ticket",map.get("ticket").toString());
+                //设为全站有效
+                cookie.setPath("/");
+                //如果有rememberMe则吧cookie有效期延长五天,不写的话浏览器关闭就失效了
+                if (rememberMe > 0) {
+                    cookie.setMaxAge(3600*24*5);
+                }
+
+                response.addCookie(cookie);
+
                 return ToutiaoUtil.getJsonString(200,"注册成功");
             } else {
                 return ToutiaoUtil.getJsonString(500,map);
@@ -48,9 +61,7 @@ public class LoginController {
             return ToutiaoUtil.getJsonString(500,"注册异常");
         }
 
-
-
-
     }
+
 
 }
