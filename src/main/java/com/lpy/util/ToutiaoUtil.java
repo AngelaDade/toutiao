@@ -10,7 +10,9 @@ import java.util.Map;
  */
 public class ToutiaoUtil {
 
-    public static String IMAGE_DIR = "/Users/lipeiyuan/lpy_src/iamges/";
+    public static String IMAGE_DIR = "/Users/lipeiyuan/lpy_src/images/";
+
+    public static String TOUTIAO_DOMAIN = "http://localhost:8080/";
 
     public static String[] IMAGE_FILE_EXT = new String[]{"png","bmp","jpg","jpeg"};
 

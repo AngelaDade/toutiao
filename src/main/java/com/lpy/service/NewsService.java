@@ -7,8 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by lipeiyuan on 2018/7/14.
@@ -32,13 +38,18 @@ public class NewsService {
             return null;
         }
 
-        String fileExt = file.getOriginalFilename().substring(doPos+1);
+        String fileExt = file.getOriginalFilename().substring(doPos+1).toLowerCase();
 
         if (!ToutiaoUtil.isFileAllowed(fileExt)) {
             return null;
         }
 
         //条件符合存放到本地服务器
+
+        String fileName = UUID.randomUUID().toString().replaceAll("-","")+"."+fileExt;
+        Files.copy(file.getInputStream(),new File(ToutiaoUtil.IMAGE_DIR+fileName).toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        return ToutiaoUtil.TOUTIAO_DOMAIN+"image?name="+fileName;
 
     }
 
