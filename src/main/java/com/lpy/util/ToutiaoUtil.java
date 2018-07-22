@@ -10,6 +10,10 @@ import java.util.Map;
  */
 public class ToutiaoUtil {
 
+    public static String IMAGE_DIR = "/Users/lipeiyuan/lpy_src/iamges/";
+
+    public static String[] IMAGE_FILE_EXT = new String[]{"png","bmp","jpg","jpeg"};
+
     //md5
     public static String MD5(String s) {
         try {
@@ -53,6 +57,16 @@ public class ToutiaoUtil {
         jsonObject.addProperty("code",code);
         jsonObject.addProperty("msg",msg);
         return jsonObject.toString();
+    }
+
+    //根据后缀名判断是不是图片文件
+    public static boolean isFileAllowed(String fileExt) {
+        for (String ext : IMAGE_FILE_EXT) {
+            if (ext.equals(fileExt)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
