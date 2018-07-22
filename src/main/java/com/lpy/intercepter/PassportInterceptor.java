@@ -20,6 +20,9 @@ import java.util.Date;
 
 /**
  * Created by lipeiyuan on 2018/7/17.
+ * 这个拦截器的作用：
+ * 如果在cookie中有ticket说明已经登录，检查后在threadLocal中存储用户信息方便该线程之后获取用户信息
+ *
  */
 @Component
 public class PassportInterceptor implements HandlerInterceptor {

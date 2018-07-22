@@ -2,6 +2,7 @@ package com.lpy.controller;
 
 import com.lpy.model.HostHolder;
 import com.lpy.model.News;
+import com.lpy.model.User;
 import com.lpy.model.ViewObject;
 import com.lpy.service.NewsService;
 import com.lpy.service.UserService;
@@ -84,5 +85,19 @@ public class HomeController {
 
 
         return map;
+    }
+
+    @RequestMapping(value = {"/authority"})
+    @ResponseBody
+    public String requireLogin() {
+        return "require Login !!!";
+    }
+
+
+    @RequestMapping(value = "/settings")
+    @ResponseBody
+    public User setting() {
+        User user = hostHolder.getUser();
+        return user;
     }
 }

@@ -1,5 +1,6 @@
 package com.lpy.configuration;
 
+import com.lpy.intercepter.LoginRequiredInterceptor;
 import com.lpy.intercepter.PassportInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,12 +19,17 @@ public class ToutiaoWebConfiguaration implements WebMvcConfigurer {
     @Autowired
     PassportInterceptor passportInterceptor;
 
+    @Autowired
+    LoginRequiredInterceptor loginRequiredInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        //注册自定义拦截器，添加拦截路径和排除拦截路径
+        //注册自定义拦截器，添加拦截路径和排除拦截路径（不添加路径的话就是全局的，所有uri都起作用）
         registry.addInterceptor(passportInterceptor);
-//                .addPathPatterns("/").addPathPatterns("/home").excludePathPatterns("/login");
+
+
+        registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/settings");
         
 
     }
