@@ -15,6 +15,8 @@ import java.util.Enumeration;
 
 /**
  * Created by lipeiyuan on 2018/7/5.
+ *
+ * 用来测试各种请求
  */
 @Controller
 public class IndexController {
@@ -94,7 +96,7 @@ public class IndexController {
     //重定向方式二
     //用redirect前缀来表示重定向 此时不能再添加@ResponseBody注解
     //session 是打开浏览器访问到关掉浏览器的期间回话，如果新开无痕窗口相当于重新与服务器建立联系
-    //新建标签页也相当于是同一次回话
+    //新建标签页也相当于是同一次会话
     @RequestMapping(value = "/redirect2")
     public String redirect2(HttpSession httpSession) {
         httpSession.setAttribute("msg" , "jump from redirect");

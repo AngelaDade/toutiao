@@ -77,7 +77,7 @@ public class UserService {
             map.put("msgName","用户名不存在");
             return map;
         }
-        if (!ToutiaoUtil.MD5(password+user.getSalt()).equals(user.getSalt())) {
+        if (!ToutiaoUtil.MD5(password+user.getSalt()).equals(user.getPassword())) {
             map.put("msgPwd","密码错误");
             return map;
         }
@@ -87,6 +87,11 @@ public class UserService {
 
 
         return map;
+
+    }
+
+    public void logout(String ticket ) {
+        loginTicketDao.updateStatus(TicketStatus.UNVALID , ticket);
 
     }
 

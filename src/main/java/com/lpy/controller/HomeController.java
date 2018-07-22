@@ -1,5 +1,6 @@
 package com.lpy.controller;
 
+import com.lpy.model.HostHolder;
 import com.lpy.model.News;
 import com.lpy.model.ViewObject;
 import com.lpy.service.NewsService;
@@ -25,6 +26,9 @@ public class HomeController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    HostHolder hostHolder;
 
     @RequestMapping(value = {"/thymeleaf"})
     public String testThymeleaf(Model model) {
@@ -61,7 +65,7 @@ public class HomeController {
 
     @RequestMapping(value = {"/","/home"})
     @ResponseBody
-    public List<News> index() {
+    public Map<String , Object> index() {
         List<News> newsList = newsService.getLatestNews(0,0,10);
 //        List<ViewObject> viewObjects = new ArrayList<>();
         //把主页上一条数据关联的都放到ViewObject里面
@@ -73,6 +77,12 @@ public class HomeController {
 //            viewObjects.add(viewObject);
 //        }
 //        model.addAttribute("vos" , viewObjects);
-        return newsList;
+        Map<String , Object> map = new HashMap<>();
+        map.put("news" , newsList.get(0));
+        if (hostHolder.getUser() != null)
+        map.put("user",hostHolder.getUser().getName());
+
+
+        return map;
     }
 }
