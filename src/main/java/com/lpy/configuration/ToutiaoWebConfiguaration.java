@@ -29,7 +29,7 @@ public class ToutiaoWebConfiguaration implements WebMvcConfigurer {
         registry.addInterceptor(passportInterceptor);
 
 
-        registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/settings");
+        registry.addInterceptor(loginRequiredInterceptor).addPathPatterns("/settings","/addComment");
         
 
     }

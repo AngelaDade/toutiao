@@ -1,9 +1,8 @@
 package com.lpy.dao;
 
 import com.lpy.model.News;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import com.lpy.model.User;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -22,4 +21,10 @@ public interface NewsDao {
     int addNews(News news);
 
     List<News> selectByUserIdAndOffset(@Param("userId") int userId , @Param("offset") int offset , @Param("limit") int limit);
+
+    @Update({"update ",TABLE_NAME , " set comment_count=#{commentCount} where id=#{id}"})
+    void updateCommentCount(@Param("commentCount") int commentCount , @Param("id") int id);
+
+    @Select({"select " , SELECT_FIELDS , "from" , TABLE_NAME , " where id=#{id}"})
+    News selectById(int id);
 }
